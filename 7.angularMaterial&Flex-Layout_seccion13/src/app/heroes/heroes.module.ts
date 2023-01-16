@@ -7,6 +7,10 @@ import { ListadoComponent } from './pages/listado/listado.component';
 import { HeroesRoutingModule } from './heroes-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
+import { HeroeTarjetaComponentComponent } from './components/heroe-tarjeta-component/heroe-tarjeta-component.component';
+import { ImagenPipe } from './pipes/imagen.pipe';
+import { HeroeComponent } from './pages/heroe/heroe.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,13 +19,17 @@ import { MaterialModule } from '../material/material.module';
     AgregarComponent,
     BuscarComponent,
     HomeComponent,
-    ListadoComponent
+    ListadoComponent,
+    HeroeTarjetaComponentComponent,
+    ImagenPipe,
+    HeroeComponent
   ],
   imports: [
     CommonModule,
     HeroesRoutingModule,
     MaterialModule,
     FlexLayoutModule,
+    FormsModule
     
 
   ]

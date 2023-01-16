@@ -5,6 +5,7 @@ import { AgregarComponent } from './pages/agregar/agregar.component';
 import { BuscarComponent } from './pages/buscar/buscar.component';
 import { HeroesModule } from './heroes.module';
 import { HomeComponent } from './pages/home/home.component';
+import { HeroeComponent } from './pages/heroe/heroe.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: HomeComponent
+        component: HeroeComponent
       },
       {
         path: '**',
