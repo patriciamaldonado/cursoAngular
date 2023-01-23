@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     ListadoComponent,
     HeroeTarjetaComponentComponent,
     ImagenPipe,
-    HeroeComponent
+    HeroeComponent,
+    
   ],
   imports: [
     CommonModule,
