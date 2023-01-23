@@ -54,7 +54,7 @@ export class AgregarComponent implements OnInit {
 
     this.activatedRoute.params
       .pipe(
-        switchMap( ({id}) => this.heroesService.getHeroeById( id ) )
+        switchMap( ({id}) => this.heroesService.getHeroePorId( id ) )
       )
       .subscribe( heroe => this.heroe = heroe );
 

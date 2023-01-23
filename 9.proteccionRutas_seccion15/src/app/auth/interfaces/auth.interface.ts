@@ -1,5 +1,7 @@
-export interface Auth{
-    id: string;
-    email: string;
+
+
+export interface Auth {
+    id:      string;
+    email:   string;
     usuario: string;
 }
