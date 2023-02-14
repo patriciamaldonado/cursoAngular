@@ -1,4 +1,5 @@
-<p>Template: Básicos</p>
+<h2> Template: <small> Básicos</small></h2>
+
 <hr>
 
 <div class="row">
@@ -8,7 +9,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"> Producto</label>
                 <div class="col-sm-9">
-                    <input type="text" ngModel name="producto" class="form-control" placeholder="Nombre del producto"
+                    <input type="text" [ngModel]="initForm.producto" name="producto" class="form-control" placeholder="Nombre del producto"
                         required minlength="3">
                     <span class="form-text text-danger" *ngIf="nombreValido()">
                         Debe tener 3 letras</span>
@@ -18,7 +19,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"> Precio</label>
                 <div class="col-sm-9">
-                    <input type="number" ngModel name="precio" class="form-control" placeholder="Precio del producto"
+                    <input type="number"  [ngModel]="initForm.precio" name="precio" class="form-control" placeholder="Precio del producto"
                     required min="0">
                     <span class="form-text text-danger" *ngIf="precioValido()">
                        El precio debe de ser mayor o igual a 0</span>
@@ -28,8 +29,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"> Existencias</label>
                 <div class="col-sm-9">
-                    <input type="number" ngModel name="existencias" class="form-control"
-                        placeholder="Existencias del producto" required>
+                    <input type="number"  [ngModel]="initForm.existencias" name="existencias" class="form-control"
+                        customMin
+                        [minimo]="0"
+                        placeholder="Existencias del producto"
+                        required>
                 </div>
             </div>
 
@@ -58,5 +62,6 @@
 
         <span>Valid</span>
         <pre>{{miFormulario.value | json}}</pre>
+
     </div>
 </div>

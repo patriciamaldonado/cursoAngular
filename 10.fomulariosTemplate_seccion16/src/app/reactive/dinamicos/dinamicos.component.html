@@ -1,1 +1,63 @@
-<p>dinamicos works!</p>
+<h2> Template: <small> Dinámicos</small></h2>
+
+<hr>
+
+<form (ngSubmit)="guardar()" autocomplete="off" [formGroup]="miFormulario">
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label"> Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control" placeholder="Nombre de la persona" formControlName="nombre"
+                required>
+            <span class="form-text text-danger"
+                *ngIf="campoEsValido('nombre')">
+                Este campo es obligatorio</span>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label"> Agregar</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input class="form-control" 
+                [formControl]="nuevoFavorito"
+                placeholder="Agregar favorito"
+                (keyup.enter)="agregarFavorito()"
+                >
+                <button class="btn btn-outline-primary" type="button" 
+                (click)="agregarFavorito()">
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label"> Favoritos</label>
+        <div class="col-sm-9" formArrayName="favoritos">
+            <div class="input-group mb-1" *ngFor="let favoritos of favoritosArray.controls ; let i = index" >
+                <input 
+                    name="" class="form-control"
+                    [formControlName]="i" required>
+                    <button class="btn btn-outline-danger" type="button" (click)="borrar(i)"> Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary float-end" [disabled]="miFormulario.invalid"
+                (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</form>
+
+
+<span>Value</span>
+<pre>{{miFormulario.value | json }}</pre>
+
+<span>Agregar Juego</span>
+<pre>{{nuevoFavorito.valid }}</pre>
+<br>
+<pre>{{nuevoFavorito.value }}</pre>
