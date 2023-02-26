@@ -16,7 +16,12 @@
                 <label class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
                     <input type="email" class="form-control" placeholder="Email del usuario" formControlName="email">
-                    <span class="form-text text-danger" *ngIf="campoNoValido('email')"> Debe de ser en formato email</span>
+                    <span class="form-text text-danger" *ngIf="campoNoValido('email')"> {{emailErrorMsg}}</span>
+
+                    <!-- <span class="form-text text-danger" *ngIf="emailRequired()"> El correo es obligatorio</span>
+                    <span class="form-text text-danger" *ngIf="emailFormat()"> No tiene formato de correo</span>
+                    <span class="form-text text-danger" *ngIf="emailTomado()"> Ya existe un correo como ese</span> -->
+
                 </div>
             </div>
 
@@ -33,7 +38,7 @@
                 <label class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" placeholder="Password de su cuenta" formControlName="password">
-                    <span class="form-text text-danger"> La contraseña debe ser mayor de 6 caracteres</span>
+                    <span class="form-text text-danger" *ngIf="campoNoValido('password')"> La contraseña debe ser mayor de 6 caracteres</span>
                 </div>
             </div>
 
@@ -42,13 +47,15 @@
                 <label class="col-sm-3 col-form-label">Confirmar</label>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" placeholder="Confirmar la contraseña" formControlName="confirmPassword">
-                    <span class="form-text text-danger"> Las contraseñas deben ser iguales</span>
+                    <span class="form-text text-danger" *ngIf="campoNoValido('confirmPassword')"> Las contraseñas deben ser iguales</span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary float-end" 
+                    [disabled]="miFormulario.pending"
+                    type="submit">
                         Crear
                     </button>
                 </div>
@@ -60,6 +67,10 @@
 </div>
 
 <h2>Form Valid: {{ miFormulario.valid }}</h2>
+<h2>Form Status: {{ miFormulario.status }}</h2>
+<h2>Form Pending: {{ miFormulario.pending }}</h2>
+
+
 <h2>Form Errors: </h2>
     <pre> {{ miFormulario.errors | json }}/pre>
 
