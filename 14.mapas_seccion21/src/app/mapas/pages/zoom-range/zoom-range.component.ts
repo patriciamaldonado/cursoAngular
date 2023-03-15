@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl'
 
 @Component({
@@ -6,17 +6,67 @@ import * as mapboxgl from 'mapbox-gl'
   templateUrl: './zoom-range.component.html',
   styleUrls: ['./zoom-range.component.css']
 })
-export class ZoomRangeComponent implements OnInit {
+export class ZoomRangeComponent implements AfterViewInit, OnDestroy {
+
+  @ViewChild('mapa') divMapa!: ElementRef;
+  mapa!: mapboxgl.Map;
+  zoomLevel: number = 10;
+  //long lat
+  center: [number,number] = [-3.6118650267114347, 37.147912504486875]
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.mapa.off('zoom', () => {});
+    this.mapa.off('zoomend', () => {});
+    this.mapa.off('move', () => {});
+  }
 
-    var map = new mapboxgl.Map({
-      container: 'mapa',
+  ngAfterViewInit(): void {
+
+    this.mapa = new mapboxgl.Map({
+      container: this.divMapa.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center:[-3.6118650267114347,37.147912504486875], //long, lat 
-      zoom: 14
+      center: this.center, //long, lat 
+      zoom: this.zoomLevel
     });
+
+    //Establecemos bien el zoom
+    this.mapa.on('zoom', (ev) => {
+      this.zoomLevel = this.mapa.getZoom();
+    });
+
+    //Restringimos maximo de zoom
+    this.mapa.on('zoomend', (ev) => {
+      if (this.mapa.getZoom() > 18) {
+        this.mapa.zoomTo(18);
+      }
+    });
+
+    // Movimiento del mapa, para obtener la posicion centrar
+    // al mover el mapa
+
+    this.mapa.on('move', (ev) => {
+    const target = ev.target;
+    target.getCenter().lat;
+    this.center = [  target.getCenter().lng, target.getCenter().lat]
+    });
+
+  }
+
+
+  zoomOut() {
+    this.mapa.zoomOut();
+    this.zoomLevel = this.mapa?.getZoom();
+  }
+
+  zoomIn() {
+    this.mapa.zoomIn();
+    this.zoomLevel = this.mapa?.getZoom();
+  }
+
+
+  zoomCambio(zoomValue: string) {
+    this.mapa.zoomTo(Number(zoomValue));
   }
 }
